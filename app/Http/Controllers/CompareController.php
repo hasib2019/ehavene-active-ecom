@@ -41,7 +41,7 @@ class CompareController extends Controller
             $request->session()->put('compare', $compare);
         }
 
-        return view('frontend.partials.compare');
+        return view('frontend.'.get_setting('homepage_select').'.partials.compare');
     }
 
     public function details($unique_identifier)

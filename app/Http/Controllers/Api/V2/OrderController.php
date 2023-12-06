@@ -30,7 +30,7 @@ class OrderController extends Controller
                 $subtotal += cart_product_price($cartItem, $product, false, false) * $cartItem['quantity'];
             }
             if ($subtotal < get_setting('minimum_order_amount')) {
-                return $this->failed("You order amount is less then the minimum order amount");
+                return $this->failed(translate("You order amount is less then the minimum order amount"));
             }
         }
 

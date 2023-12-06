@@ -145,6 +145,24 @@ Route::group(['prefix' => 'v2/seller', 'middleware' => ['app_language']], functi
         });
 
         // ...
+
+        // POS
+        Route::controller(PosController::class)->group(function () {
+            Route::get('pos/products', 'productsList');
+            Route::get('pos/get-customers', 'getCustomers');
+            Route::post('pos/update-session-user', 'updateSessionUser');
+            Route::get('pos/get-shipping_address/{id}', 'getShippingAddress');
+            Route::post('pos/create-shipping-address', 'createShippingAddress');
+            Route::post('pos/add-to-cart', 'addToCart');
+            Route::post('pos/update-cart', 'updateQuantity');
+            Route::get('pos/delete-cart/{id}', 'removeFromCart');
+            Route::post('pos/order-place', 'orderStore');
+            Route::post('pos/user-cart-data', 'getUserCartData');
+            Route::get('pos/configuration', 'posConfiguration');
+            Route::post('pos/configuration/update', 'posConfigurationUpdate');
+            
+        });
+
     });
 
     // Route::post('shops/create', [ShopController::class, 'store']);

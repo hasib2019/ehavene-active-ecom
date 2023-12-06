@@ -118,6 +118,6 @@
 
 @section('script')
     @if (get_setting('google_map') == 1)
-        @include('frontend.partials.google_map')
+        @include('frontend.'.get_setting('homepage_select').'.partials.google_map')
     @endif
 @endsection

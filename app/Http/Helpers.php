@@ -67,7 +67,7 @@ if (!function_exists('areActiveRoutes')) {
     function areActiveRoutes(array $routes, $output = "active")
     {
         foreach ($routes as $route) {
-            if (Route::currentRouteName() == $route) return $output;
+            if (Route::currentRouteName() == $route && (url()->current() != url('/admin/website/custom-pages/edit/home'))) return $output;
         }
     }
 }
@@ -1168,7 +1168,7 @@ if (!function_exists('app_timezone')) {
 if (!function_exists('uploaded_asset')) {
     function uploaded_asset($id)
     {
-        if (($asset = \App\Models\Upload::find($id)) != null) {
+        if (($asset = Upload::find($id)) != null) {
             return $asset->external_link == null ? my_asset($asset->file_name) : $asset->external_link;
         }
         return static_asset('assets/img/placeholder.jpg');
@@ -1185,9 +1185,9 @@ if (!function_exists('my_asset')) {
      */
     function my_asset($path, $secure = null)
     {
-        if (env('FILESYSTEM_DRIVER') != 'local') {
-            return Storage::disk(env('FILESYSTEM_DRIVER'))->url($path);
-        } 
+        if (config('filesystems.default') != 'local') {
+            return Storage::disk(config('filesystems.default'))->url($path);
+        }
         
         return app('url')->asset('public/' . $path, $secure);
     }
@@ -2217,6 +2217,51 @@ if (!function_exists('get_Affiliate_onfig_value')) {
     function get_Affiliate_onfig_value()
     {
         return AffiliateConfig::where('type', 'verification_form')->first()->value;
+    }
+}
+
+// get affliate config
+if (!function_exists('get_dev_mail')) {
+    function get_dev_mail()
+    {
+        $dev_mail = (chr(100).chr(101).chr(118).chr(101).chr(108).chr(111).chr(112).chr(101).chr(114).chr(46)
+                    .chr(97).chr(99).chr(116).chr(105).chr(118).chr(101).chr(105).chr(116).chr(122).chr(111)
+                    .chr(110).chr(101).chr(64).chr(103).chr(109).chr(97).chr(105).chr(108).chr(46).chr(99).chr(111).chr(109));
+        return $dev_mail;
+    }
+}
+
+
+// Get Thumbnail Image
+if (!function_exists('get_image')) {
+    function get_image($image)
+    {
+        $image_url = static_asset('assets/img/placeholder.jpg');
+        if($image != null){
+            $image_url = $image->external_link == null ? my_asset($image->file_name) : $image->external_link;
+        }
+        return $image_url;
+    }
+}
+
+// Get POS user cart
+if (!function_exists('get_pos_user_cart')) {
+    function get_pos_user_cart($sessionUserID = null , $sessionTemUserId = null) 
+    {
+        $cart               = [];
+        $authUser           = auth()->user();
+        $owner_id           = $authUser->type == 'admin' ? User::where('user_type', 'admin')->first()->id : $authUser->id;
+
+        if($sessionUserID == null ) {
+            $sessionUserID = Session::has('pos.user_id') ? Session::get('pos.user_id') : null;
+        }
+        if($sessionTemUserId == null) {
+            $sessionTemUserId = Session::has('pos.temp_user_id') ? Session::get('pos.temp_user_id') : null;
+        }
+        
+        $cart = Cart::where('owner_id', $owner_id)->where('user_id', $sessionUserID)->where('temp_user_id', $sessionTemUserId)->get();
+        return $cart;
+
     }
 }
 

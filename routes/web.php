@@ -1,52 +1,51 @@
 <?php
 
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\DemoController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\ShopController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\WalletController;
 use App\Http\Controllers\AddressController;
-use App\Http\Controllers\CompareController;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\MessageController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\CurrencyController;
-use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\AizUploadController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CompareController;
 use App\Http\Controllers\ConversationController;
-use App\Http\Controllers\FollowSellerController;
-use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\ProductQueryController;
-use App\Http\Controllers\Payment\BkashController;
-use App\Http\Controllers\Payment\NagadController;
-
-use App\Http\Controllers\Payment\PaykuController;
-use App\Http\Controllers\SupportTicketController;
-use App\Http\Controllers\DigitalProductController;
-use App\Http\Controllers\Payment\IyzicoController;
-use App\Http\Controllers\Payment\PaypalController;
-use App\Http\Controllers\Payment\StripeController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\CustomerPackageController;
 use App\Http\Controllers\CustomerProductController;
+use App\Http\Controllers\DemoController;
+use App\Http\Controllers\FollowSellerController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\Payment\AamarpayController;
+use App\Http\Controllers\Payment\AuthorizenetController;
+use App\Http\Controllers\Payment\BkashController;
+use App\Http\Controllers\Payment\InstamojoController;
+use App\Http\Controllers\Payment\IyzicoController;
+use App\Http\Controllers\Payment\MercadopagoController;
+use App\Http\Controllers\Payment\NagadController;
 use App\Http\Controllers\Payment\NgeniusController;
 use App\Http\Controllers\Payment\PayhereController;
-use App\Http\Controllers\PurchaseHistoryController;
-use App\Http\Controllers\Payment\AamarpayController;
+use App\Http\Controllers\Payment\PaykuController;
+use App\Http\Controllers\Payment\PaypalController;
 use App\Http\Controllers\Payment\PaystackController;
+use App\Http\Controllers\Payment\PhonepeController;
 use App\Http\Controllers\Payment\RazorpayController;
-use App\Http\Controllers\Payment\VoguepayController;
-use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\Payment\InstamojoController;
 use App\Http\Controllers\Payment\SslcommerzController;
-use App\Http\Controllers\Payment\MercadopagoController;
-use App\Http\Controllers\Payment\AuthorizenetController;
+use App\Http\Controllers\Payment\StripeController;
+use App\Http\Controllers\Payment\VoguepayController;
+use App\Http\Controllers\ProductQueryController;
+use App\Http\Controllers\PurchaseHistoryController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\SupportTicketController;
+use App\Http\Controllers\WalletController;
+use App\Http\Controllers\WishlistController;
 
 /*
   |--------------------------------------------------------------------------
@@ -84,7 +83,7 @@ Route::controller(AizUploadController::class)->group(function () {
     Route::get('/aiz-uploader/download/{id}', 'attachment_download')->name('download_attachment');
 });
 
-Route::group(['middleware' => 'prevent-back-history'], function () {
+Route::group(['middleware' => ['prevent-back-history','handle-demo-login']], function () {
     Auth::routes(['verify' => true]);
 });
 
@@ -96,6 +95,7 @@ Route::controller(LoginController::class)->group(function () {
     //Apple Callback
     Route::post('/apple-callback', 'handleAppleCallback');
     Route::get('/account-deletion', 'account_deletion')->name('account_delete');
+    Route::get('/handle-demo-login', 'handle_demo_login')->name('handleDemoLogin');
 });
 
 Route::controller(VerificationController::class)->group(function () {
@@ -107,17 +107,17 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/email-change/callback', 'email_change_callback')->name('email_change.callback');
     Route::post('/password/reset/email/submit', 'reset_password_with_code')->name('password.update');
 
-    Route::get('/users/login', 'login')->name('user.login');
-    Route::get('/seller/login', 'login')->name('seller.login');
-    Route::get('/deliveryboy/login', 'login')->name('deliveryboy.login');
-    Route::get('/users/registration', 'registration')->name('user.registration');
-    Route::post('/users/login/cart', 'cart_login')->name('cart.login.submit');
+    Route::get('/users/login', 'login')->name('user.login')->middleware('handle-demo-login');
+    Route::get('/seller/login', 'login')->name('seller.login')->middleware('handle-demo-login');
+    Route::get('/deliveryboy/login', 'login')->name('deliveryboy.login')->middleware('handle-demo-login');
+    Route::get('/users/registration', 'registration')->name('user.registration')->middleware('handle-demo-login');
+    Route::post('/users/login/cart', 'cart_login')->name('cart.login.submit')->middleware('handle-demo-login');
     // Route::get('/new-page', 'new_page')->name('new_page');
 
 
     //Home Page
     Route::get('/', 'index')->name('home');
-    
+
     Route::post('/home/section/featured', 'load_featured_section')->name('home.section.featured');
     Route::post('/home/section/todays-deal', 'load_todays_deal_section')->name('home.section.todays_deal');
     Route::post('/home/section/best-selling', 'load_best_selling_section')->name('home.section.best_selling');
@@ -355,7 +355,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-Route::resource('shops', ShopController::class);
+Route::resource('shops', ShopController::class)->middleware('handle-demo-login');
 
 Route::get('/instamojo/payment/pay-success', [InstamojoController::class, 'success'])->name('instamojo.success');
 
@@ -398,6 +398,14 @@ Route::controller(PayhereController::class)->group(function () {
     Route::any('/payhere/customer_package_payment/notify', 'customer_package_notify')->name('payhere.customer_package_payment.notify');
     Route::any('/payhere/customer_package_payment/return', 'customer_package_return')->name('payhere.customer_package_payment.return');
     Route::any('/payhere/customer_package_payment/cancel', 'customer_package_cancel')->name('payhere.customer_package_payment.cancel');
+});
+
+
+// phonepe
+Route::controller(PhonepeController::class)->group(function () {
+    Route::any('/phonepe/pay', 'pay')->name('phonepe.pay');
+    Route::any('/phonepe/redirecturl', 'phonepe_redirecturl')->name('phonepe.redirecturl');
+    Route::any('/phonepe/callbackUrl', 'phonepe_callbackUrl')->name('phonepe.callbackUrl');
 });
 
 

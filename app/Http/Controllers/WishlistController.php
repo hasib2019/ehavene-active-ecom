@@ -45,7 +45,7 @@ class WishlistController extends Controller
                 $wishlist->product_id = $request->id;
                 $wishlist->save();
             }
-            return view('frontend.partials.wishlist');
+            return view('frontend.'.get_setting('homepage_select').'.partials.wishlist');
         }
         return 0;
     }
@@ -55,7 +55,7 @@ class WishlistController extends Controller
         $wishlist = Wishlist::findOrFail($request->id);
         if($wishlist!=null){
             if(Wishlist::destroy($request->id)){
-                return view('frontend.partials.wishlist');
+                return view('frontend.'.get_setting('homepage_select').'.partials.wishlist');
             }
         }
     }

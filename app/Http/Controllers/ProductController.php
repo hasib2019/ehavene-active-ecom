@@ -16,6 +16,7 @@ use App\Models\User;
 use App\Notifications\ShopProductNotification;
 use Carbon\Carbon;
 use Combinations;
+use CoreComponentRepository;
 use Artisan;
 use Cache;
 use Str;
@@ -24,6 +25,8 @@ use App\Services\ProductTaxService;
 use App\Services\ProductFlashDealService;
 use App\Services\ProductStockService;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class ProductController extends Controller
 {
@@ -59,6 +62,8 @@ class ProductController extends Controller
      */
     public function admin_products(Request $request)
     {
+        CoreComponentRepository::instantiateShopRepository();
+
         $type = 'In House';
         $col_name = null;
         $query = null;
@@ -169,6 +174,8 @@ class ProductController extends Controller
      */
     public function create()
     {
+        CoreComponentRepository::initializeCache();
+
         $categories = Category::where('parent_id', 0)
             ->where('digital', 0)
             ->with('childrenCategories')
@@ -256,6 +263,8 @@ class ProductController extends Controller
      */
     public function admin_product_edit(Request $request, $id)
     {
+        CoreComponentRepository::initializeCache();
+
         $product = Product::findOrFail($id);
         if ($product->digital == 1) {
             return redirect('admin/digitalproducts/' . $id . '/edit');
@@ -345,7 +354,9 @@ class ProductController extends Controller
 
         Artisan::call('view:clear');
         Artisan::call('cache:clear');
-
+        if($request->has('tab') && $request->tab != null){
+            return Redirect::to(URL::previous() . "#" . $request->tab);
+        }
         return back();
     }
 

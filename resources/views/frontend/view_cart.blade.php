@@ -48,7 +48,7 @@
 
     <!-- Cart Details -->
     <section class="mb-4" id="cart-summary">
-        @include('frontend.partials.cart_details', ['carts' => $carts])
+        @include('frontend.'.get_setting('homepage_select').'.partials.cart_details', ['carts' => $carts])
     </section>
 
 @endsection

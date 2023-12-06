@@ -20,7 +20,10 @@
     <title>{{ get_setting('website_name') . ' | ' . get_setting('site_motto') }}</title>
 
     <!-- google font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"> --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
 
     <!-- aiz core css -->
     <link rel="stylesheet" href="{{ static_asset('assets/css/vendors.css') }}">
@@ -30,8 +33,41 @@
     <link rel="stylesheet" href="{{ static_asset('assets/css/aiz-core.css?v=') }}{{ rand(1000,9999) }}">
 
     <style>
+        :root {
+            --blue: #3390f3;
+            --hov-blue: #1f6dc2;
+            --soft-blue: #f1fafd;
+        }
         body {
             font-size: 12px;
+            font-family: 'Public Sans', sans-serif;
+        }
+        /* .bootstrap-select .btn,
+        .btn:not(.btn-circle),
+        .form-control,
+        .input-group-text,
+        .custom-file-label, .custom-file-label::after {
+            border-radius: 0;
+        } */
+        .border-gray {
+            border-color: #e4e5eb !important;
+        }
+        .card {
+            border-radius: 8px;
+            background: #fff;
+            border: 1px solid #f1f1f4;
+            box-shadow: 0px 6px 14px rgba(35, 39, 52, 0.04);
+        }
+        .form-control {
+            border: 1px solid #e4e5eb;
+        }
+        .aiz-color-input{
+            border-top-left-radius: 4px !important;
+            border-bottom-left-radius: 4px !important;
+        }
+        .form-control.file-amount{
+            border-top-right-radius: 4px !important;
+            border-bottom-right-radius: 4px !important;
         }
     </style>
     <script>

@@ -98,7 +98,7 @@
 			<h1 class="h3">{{translate('All Currencies')}}</h1>
 		</div>
 		<div class="col-md-6 text-md-right">
-			<a onclick="currency_modal()" href="#" class="btn btn-circle btn-primary">
+			<a onclick="currency_modal()" href="#" class="btn btn-circle btn-info">
 				<span>{{translate('Add New Currency')}}</span>
 			</a>
 		</div>

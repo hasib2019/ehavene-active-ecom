@@ -265,6 +265,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'prevent-ba
             Route::get('/footer', 'footer')->name('website.footer');
             Route::get('/header', 'header')->name('website.header');
             Route::get('/appearance', 'appearance')->name('website.appearance');
+            Route::get('/select-homepage', 'select_homepage')->name('website.select-homepage');
             Route::get('/pages', 'pages')->name('website.pages');
         });
 

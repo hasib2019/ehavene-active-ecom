@@ -286,10 +286,8 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
 
 
     Route::any('stripe', 'App\Http\Controllers\Api\V2\StripeController@stripe');
-    Route::any('stripe/create-checkout-session', 'App\Http\Controllers\Api\V2\StripeController@create_checkout_session')->name('api.stripe.get_token');
     Route::any('stripe/payment/callback', 'App\Http\Controllers\Api\V2\StripeController@callback')->name('api.stripe.callback');
-    Route::get('stripe/success', 'App\Http\Controllers\Api\V2\StripeController@payment_success');
-    Route::any('stripe/cancel', 'App\Http\Controllers\Api\V2\StripeController@cancel')->name('api.stripe.cancel');
+   
 
     Route::any('paypal/payment/url', 'App\Http\Controllers\Api\V2\PaypalController@getUrl')->name('api.paypal.url');
     Route::any('amarpay', [AamarpayController::class, 'pay'])->name('api.amarpay.url');
@@ -300,7 +298,7 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
     Route::any('iyzico/init', 'App\Http\Controllers\Api\V2\IyzicoController@init')->name('api.iyzico.init');
 
     Route::get('bkash/api/webpage/{token}/{amount}', 'App\Http\Controllers\Api\V2\BkashController@webpage')->name('api.bkash.webpage');
-    Route::any('bkash/api/checkout/{token}/{amount}', 'App\Http\Controllers\Api\V2\BkashController@checkout')->name('api.bkash.checkout');
+    
 
     Route::any('bkash/api/execute/{token}', 'App\Http\Controllers\Api\V2\BkashController@execute')->name('api.bkash.execute');
     Route::any('bkash/api/fail', 'App\Http\Controllers\Api\V2\BkashController@fail')->name('api.bkash.fail');
@@ -316,6 +314,9 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
 
     Route::any('paytm/payment/pay', 'App\Http\Controllers\Api\V2\PaytmController@pay')->name('api.paytm.pay');
     Route::get('instamojo/pay', 'App\Http\Controllers\Api\V2\InstamojoController@pay');
+
+
+    Route::get('payfast/initiate', 'App\Http\Controllers\Api\V2\PayfastController@pay');
 
     Route::post('offline/payment/submit', 'App\Http\Controllers\Api\V2\OfflinePaymentController@submit')->name('api.offline.payment.submit');
 
@@ -334,7 +335,6 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
     Route::get('pickup-list', 'App\Http\Controllers\Api\V2\ShippingController@pickup_list');
 
 
-
     Route::withoutMiddleware([EnsureSystemKey::class])->group(function () {
         Route::get('google-recaptcha', function () {
             return view("frontend.google_recaptcha.app_recaptcha");
@@ -349,8 +349,15 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
         Route::post('paystack/success', 'App\Http\Controllers\Api\V2\PaystackController@payment_success')->name('api.paystack.success');
         Route::any('iyzico/callback', 'App\Http\Controllers\Api\V2\IyzicoController@callback')->name('api.iyzico.callback');
         Route::post('iyzico/success', 'App\Http\Controllers\Api\V2\IyzicoController@payment_success')->name('api.iyzico.success');
+
         Route::any('bkash/api/callback', 'App\Http\Controllers\Api\V2\BkashController@callback')->name('api.bkash.callback');
         Route::post('bkash/api/success', 'App\Http\Controllers\Api\V2\BkashController@payment_success')->name('api.bkash.success');
+        Route::any('bkash/api/checkout/{token}/{amount}', 'App\Http\Controllers\Api\V2\BkashController@checkout')->name('api.bkash.checkout');
+
+        Route::any('stripe/create-checkout-session', 'App\Http\Controllers\Api\V2\StripeController@create_checkout_session')->name('api.stripe.get_token');
+        Route::get('stripe/success', 'App\Http\Controllers\Api\V2\StripeController@payment_success');
+        Route::any('stripe/cancel', 'App\Http\Controllers\Api\V2\StripeController@cancel')->name('api.stripe.cancel');
+        
         Route::any('sslcommerz/success', 'App\Http\Controllers\Api\V2\SslCommerzController@payment_success');
         Route::any('sslcommerz/fail', 'App\Http\Controllers\Api\V2\SslCommerzController@payment_fail');
         Route::any('sslcommerz/cancel', 'App\Http\Controllers\Api\V2\SslCommerzController@payment_cancel');
@@ -358,6 +365,14 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
         Route::any('paytm/payment/callback', 'App\Http\Controllers\Api\V2\PaytmController@callback')->name('api.paytm.callback');
         Route::get('instamojo/success', 'App\Http\Controllers\Api\V2\InstamojoController@success');
         Route::get('instamojo/failed', 'App\Http\Controllers\Api\V2\InstamojoController@failed');
+
+        //Payfast routes <starts>
+        Route::controller(PayfastController::class)->group(function () {
+            Route::any('/payfast/notify', 'payfast_notify')->name('api.payfast.notify');
+            Route::any('/payfast/return', 'payfast_return')->name('api.payfast.return');
+            Route::any('/payfast/cancel', 'payfast_cancel')->name('api.payfast.cancel');
+        });
+        //Payfast routes <ends>
     });
 });
 

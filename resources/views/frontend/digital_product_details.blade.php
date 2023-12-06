@@ -154,7 +154,7 @@
                                 <!-- Messase to seller -->
                                 @if (get_setting('conversation_system') == 1)
                                     <div class="col-md-4 text-md-right mb-3">
-                                        <button class="btn btn-sm btn-soft-warning rounded-0 hov-svg-white hov-text-white"
+                                        <button class="btn btn-sm btn-soft-secondary-base rounded-0 hov-svg-white hov-text-white"
                                             onclick="show_chat_modal()">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="mr-2 has-transition">
                                                 <g id="Group_23918" data-name="Group 23918" transform="translate(1053.151 256.688)">
@@ -218,7 +218,7 @@
                                             @endif
                                             <!-- Club Point -->
                                             @if (addon_is_activated('club_point') && $detailedProduct->earn_point > 0)
-                                                <div class="ml-2 bg-warning d-flex justify-content-center align-items-center px-3 py-1" style="width: fit-content;">
+                                                <div class="ml-2 bg-secondary-base d-flex justify-content-center align-items-center px-3 py-1" style="width: fit-content;">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
                                                         <g id="Group_23922" data-name="Group 23922" transform="translate(-973 -633)">
                                                         <circle id="Ellipse_39" data-name="Ellipse 39" cx="6" cy="6" r="6" transform="translate(973 633)" fill="#fff"/>
@@ -253,7 +253,7 @@
                                             @endif
                                             <!-- Club Point -->
                                             @if (addon_is_activated('club_point') && $detailedProduct->earn_point > 0)
-                                                <div class="ml-2 bg-warning d-flex justify-content-center align-items-center px-3 py-1" style="width: fit-content;">
+                                                <div class="ml-2 bg-secondary-base d-flex justify-content-center align-items-center px-3 py-1" style="width: fit-content;">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
                                                         <g id="Group_23922" data-name="Group 23922" transform="translate(-973 -633)">
                                                         <circle id="Ellipse_39" data-name="Ellipse 39" cx="6" cy="6" r="6" transform="translate(973 633)" fill="#fff"/>
@@ -294,7 +294,7 @@
 
                             <!-- Add to cart & Buy now Buttons -->
                             <div class="mt-3">
-                                <button type="button" class="btn btn-warning mr-2 add-to-cart fw-600 w-150px rounded-0 text-white" onclick="addToCart()">
+                                <button type="button" class="btn btn-secondary-base mr-2 add-to-cart fw-600 w-150px rounded-0 text-white" onclick="addToCart()">
                                     <i class="las la-shopping-bag"></i>
                                     <span class="d-none d-md-inline-block"> {{ translate('Add to cart')}}</span>
                                 </button>
@@ -471,7 +471,7 @@
                                 <!-- shop link button -->
                                 <div class="mt-3">
                                     <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}"
-                                        class="btn btn-block btn-warning text-white fs-14 fw-700 rounded-0">{{ translate('Visit Store') }}</a>
+                                        class="btn btn-block btn-secondary-base text-white fs-14 fw-700 rounded-0">{{ translate('Visit Store') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -781,7 +781,7 @@
                                     
                             <!-- Others Queries -->
                             <div class="pagination-area my-4 mb-0 px-4">
-                                @include('frontend.partials.product_query_pagination')
+                                @include('frontend.'.get_setting('homepage_select').'.partials.product_query_pagination')
                             </div>
                         </div>
                     @endif

@@ -180,25 +180,39 @@ class PaymentTypesController
                 if ($mode == 'wallet') {
                     $payment_type['title'] = translate("Recharge with aamarpay");
                 }
-
                 $payment_types[] = $payment_type;
             }
 
             //African Payment Gateways
-            if (addon_is_activated('african_pg') && get_setting('flutterwave') == 1) {
-                $payment_type = array();
-                $payment_type['payment_type'] = 'flutterwave';
-                $payment_type['payment_type_key'] = 'flutterwave';
-                $payment_type['image'] = static_asset('assets/img/cards/flutterwave.png');
-                $payment_type['name'] = "Flutterwave";
-                $payment_type['title'] = translate("Checkout with Flutterwave");
-                $payment_type['offline_payment_id'] = 0;
-                $payment_type['details'] = "";
-                if ($mode == 'wallet') {
-                    $payment_type['title'] = translate("Recharge with Flutterwave");
+            if (addon_is_activated('african_pg')) {
+                if (get_setting('flutterwave') == 1) {
+                    $payment_type = array();
+                    $payment_type['payment_type'] = 'flutterwave';
+                    $payment_type['payment_type_key'] = 'flutterwave';
+                    $payment_type['image'] = static_asset('assets/img/cards/flutterwave.png');
+                    $payment_type['name'] = "Flutterwave";
+                    $payment_type['title'] = translate("Checkout with Flutterwave");
+                    $payment_type['offline_payment_id'] = 0;
+                    $payment_type['details'] = "";
+                    if ($mode == 'wallet') {
+                        $payment_type['title'] = translate("Recharge with Flutterwave");
+                    }
+                    $payment_types[] = $payment_type;
                 }
-
-                $payment_types[] = $payment_type;
+                if (get_setting('payfast') == 1) {
+                    $payment_type = array();
+                    $payment_type['payment_type'] = 'payfast';
+                    $payment_type['payment_type_key'] = 'payfast';
+                    $payment_type['image'] = static_asset('assets/img/cards/payfast.png');
+                    $payment_type['name'] = "Payfast";
+                    $payment_type['title'] = translate("Checkout with Payfast");
+                    $payment_type['offline_payment_id'] = 0;
+                    $payment_type['details'] = "";
+                    if ($mode == 'wallet') {
+                        $payment_type['title'] = translate("Recharge with Payfast");
+                    }
+                    $payment_types[] = $payment_type;
+                }
             }
 
             if (addon_is_activated('paytm')) {

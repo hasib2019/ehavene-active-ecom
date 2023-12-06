@@ -2,6 +2,10 @@
 
 @section('content')
 
+@php
+    CoreComponentRepository::instantiateShopRepository();
+    CoreComponentRepository::initializeCache();
+@endphp
 
 <div class="aiz-titlebar text-left mt-2 mb-3">
     <h5 class="mb-0 h6">{{translate('Category Information')}}</h5>
@@ -92,7 +96,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="signinSrEmail">{{translate('Cover Image')}} <small>({{ translate('250x250') }})</small></label>
+                        <label class="col-md-3 col-form-label" for="signinSrEmail">{{translate('Cover Image')}} <small>({{ translate('360x360') }})</small></label>
                         <div class="col-md-9">
                             <div class="input-group" data-toggle="aizuploader" data-type="image">
                                 <div class="input-group-prepend">

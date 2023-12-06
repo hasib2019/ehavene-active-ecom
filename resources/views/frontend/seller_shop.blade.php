@@ -218,7 +218,7 @@
                         <div class="aiz-carousel sm-gutters-16 arrow-none" data-items="6" data-xl-items="5" data-lg-items="4"  data-md-items="3" data-sm-items="2" data-xs-items="2" data-arrows='true' data-autoplay='true' data-infinute="true">
                             @foreach ($feature_products as $key => $product)
                             <div class="carousel-box px-3 position-relative has-transition hov-animate-outline border-right border-top border-bottom @if($key == 0) border-left @endif">
-                                @include('frontend.partials.product_box_1',['product' => $product])
+                                @include('frontend.'.get_setting('homepage_select').'.partials.product_box_1',['product' => $product])
                             </div>
                             @endforeach
                         </div>
@@ -266,7 +266,7 @@
                     <div class="aiz-carousel sm-gutters-16 arrow-none" data-items="3" data-lg-items="2" data-sm-items="1" data-arrows='true' data-infinite='false'>
                         @foreach ($coupons->take(10) as $key => $coupon)
                             <div class="carousel-box">
-                                @include('frontend.partials.coupon_box',['coupon' => $coupon])
+                                @include('frontend.'.get_setting('homepage_select').'.partials.coupon_box',['coupon' => $coupon])
                             </div>
                         @endforeach
                     </div>
@@ -349,7 +349,7 @@
                     <div class="aiz-carousel sm-gutters-16 arrow-none" data-items="6" data-xl-items="5" data-lg-items="4"  data-md-items="3" data-sm-items="2" data-xs-items="2" data-arrows='true' data-infinite='false'>
                         @foreach ($products as $key => $product)
                         <div class="carousel-box px-3 position-relative has-transition hov-animate-outline border-right border-top border-bottom @if($key == 0) border-left @endif">
-                            @include('frontend.partials.product_box_1',['product' => $product])
+                            @include('frontend.'.get_setting('homepage_select').'.partials.product_box_1',['product' => $product])
                         </div>
                         @endforeach
                     </div>
@@ -372,7 +372,7 @@
                 <div class="row gutters-16 row-cols-xl-3 row-cols-md-2 row-cols-1">
                     @foreach ($coupons as $key => $coupon)
                         <div class="col mb-4">
-                            @include('frontend.partials.coupon_box',['coupon' => $coupon])
+                            @include('frontend.'.get_setting('homepage_select').'.partials.coupon_box',['coupon' => $coupon])
                         </div>
                     @endforeach
                 </div>
@@ -603,7 +603,7 @@
                                 <div class="row gutters-16 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-4 row-cols-md-3 row-cols-2 border-top border-left">
                                     @foreach ($products as $key => $product)
                                         <div class="col border-right border-bottom has-transition hov-shadow-out z-1">
-                                            @include('frontend.partials.product_box_1',['product' => $product])
+                                            @include('frontend.'.get_setting('homepage_select').'.partials.product_box_1',['product' => $product])
                                         </div>
                                     @endforeach
                                 </div>
@@ -620,7 +620,7 @@
                     <div class="row gutters-16 row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2 border-left border-top">
                         @foreach ($products as $key => $product)
                             <div class="col border-bottom border-right overflow-hidden has-transition hov-shadow-out z-1">
-                                @include('frontend.partials.product_box_1',['product' => $product])
+                                @include('frontend.'.get_setting('homepage_select').'.partials.product_box_1',['product' => $product])
                             </div>
                         @endforeach
                     </div>

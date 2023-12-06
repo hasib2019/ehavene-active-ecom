@@ -39,14 +39,14 @@
                                             }
                                         @endphp
                                         <div class="col text-center border-right border-bottom has-transition hov-shadow-out z-1">
-                                            @include('frontend.partials.product_box_1',['product' => $product])
+                                            @include('frontend.'.get_setting('homepage_select').'.partials.product_box_1',['product' => $product])
                                         </div>
                                     @endif
                                 @endforeach
                             </div>
                         </div>
                     @else
-                        <div class="text-center text-{{ $flash_deal->text_color }}">
+                        <div class="text-center text-dark">
                             <h1 class="h3 my-4">{{ $flash_deal->title }}</h1>
                             <p class="h4">{{  translate('This offer has been expired.') }}</p>
                         </div>

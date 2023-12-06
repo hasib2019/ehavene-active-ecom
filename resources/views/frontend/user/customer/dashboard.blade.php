@@ -55,7 +55,7 @@
                     <!-- Club Point summary -->
                     @if (addon_is_activated('club_point'))
                     <div class="col">
-                        <div class="p-4 bg-warning">
+                        <div class="p-4 bg-secondary-base">
                             <div class="d-flex align-items-center pb-4 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
                                     <g id="Group_25000" data-name="Group 25000" transform="translate(-926 -614)">
@@ -268,7 +268,7 @@
 
 @section('modal')
     <!-- Wallet Recharge Modal -->
-    @include('frontend.partials.wallet_modal')
+    @include('frontend.'.get_setting('homepage_select').'.partials.wallet_modal')
     <script type="text/javascript">
         function show_wallet_modal() {
             $('#wallet_modal').modal('show');
@@ -276,11 +276,11 @@
     </script>
     
     <!-- Address modal Modal -->
-    @include('frontend.partials.address_modal')
+    @include('frontend.'.get_setting('homepage_select').'.partials.address_modal')
 @endsection
 
 @section('script')
     @if (get_setting('google_map') == 1)
-        @include('frontend.partials.google_map')
+        @include('frontend.'.get_setting('homepage_select').'.partials.google_map')
     @endif
 @endsection

@@ -9,7 +9,7 @@
             @foreach($coupons as $key => $coupon)
                 @if($coupon->user->user_type == 'admin' || ($coupon->user->shop != null && $coupon->user->shop->verification_status))
                     <div class="col mb-4">
-                        @include('frontend.partials.coupon_box',['coupon' => $coupon])
+                        @include('frontend.'.get_setting('homepage_select').'.partials.coupon_box',['coupon' => $coupon])
                     </div>  
                 @endif
             @endforeach

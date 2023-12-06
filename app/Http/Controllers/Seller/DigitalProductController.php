@@ -92,27 +92,8 @@ class DigitalProductController  extends Controller
             'lang', 'name', 'unit', 'description', 'product_id'
         ]));
 
-        flash(translate('Product has been inserted successfully'))->success();
-
-        $request->merge(['product_id' => $product->id]);
-
         //Product categories
         $product->categories()->attach($request->category_ids);
-
-        //VAT & Tax
-        if ($request->tax_id) {
-            (new ProductTaxService)->store($request->only([
-                'tax_id', 'tax', 'tax_type', 'product_id'
-            ]));
-        }
-
-        $product_stock              = new ProductStock();
-        $product_stock->product_id  = $product->id;
-        $product_stock->variant     = '';
-        $product_stock->price       = $request->unit_price;
-        $product_stock->sku         = '';
-        $product_stock->qty         = 0;
-        $product_stock->save();
 
         // Product Translations
         $product_translation                = ProductTranslation::firstOrNew(['lang' => env('DEFAULT_LANGUAGE'), 'product_id' => $product->id]);

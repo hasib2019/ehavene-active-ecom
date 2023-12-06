@@ -72,8 +72,8 @@ class UpdateController extends Controller
             flash("Sorry! The purchase code you have provided is not valid.")->error();
             return back();
         }
-        if ($request->syatem_key == null) {
-            flash("Sorry! The Syatem Key required")->error();
+        if ($request->system_key == null) {
+            flash("Sorry! The System Key required")->error();
             return back();
         }
 
@@ -88,15 +88,34 @@ class UpdateController extends Controller
             $business_settings->save();
         }
 
-        $this->writeEnvironmentFile('SYSTEM_KEY', $request->syatem_key);
+        $this->writeEnvironmentFile('SYSTEM_KEY', $request->system_key);
 
         return redirect()->route('update.step2');
     }
 
     public function step2()
     {
-        if (get_setting('current_version') == '7.9.2') {
+        if (get_setting('current_version') == '8') {
+            $sql_path = base_path('sqlupdates/v810.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            return redirect()->route('update.step3');
+        } else if (get_setting('current_version') == '7.9.3') {
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            return redirect()->route('update.step3');
+        } else if (get_setting('current_version') == '7.9.2') {
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');
@@ -105,6 +124,12 @@ class UpdateController extends Controller
             DB::unprepared(file_get_contents($sql_path));
 
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');
@@ -121,6 +146,12 @@ class UpdateController extends Controller
             $sql_path = base_path('sqlupdates/v793.sql');
             DB::unprepared(file_get_contents($sql_path));
 
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
             return redirect()->route('update.step3');
         } else if (get_setting('current_version') == '7.8.0') {
             $sql_path = base_path('sqlupdates/v790.sql');
@@ -133,6 +164,12 @@ class UpdateController extends Controller
             DB::unprepared(file_get_contents($sql_path));
 
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');
@@ -150,6 +187,12 @@ class UpdateController extends Controller
             DB::unprepared(file_get_contents($sql_path));
 
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');
@@ -170,6 +213,12 @@ class UpdateController extends Controller
             DB::unprepared(file_get_contents($sql_path));
 
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');
@@ -193,6 +242,12 @@ class UpdateController extends Controller
             DB::unprepared(file_get_contents($sql_path));
 
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');
@@ -219,6 +274,12 @@ class UpdateController extends Controller
             DB::unprepared(file_get_contents($sql_path));
 
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');
@@ -248,6 +309,12 @@ class UpdateController extends Controller
             DB::unprepared(file_get_contents($sql_path));
 
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');
@@ -280,6 +347,12 @@ class UpdateController extends Controller
             DB::unprepared(file_get_contents($sql_path));
 
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');
@@ -315,6 +388,12 @@ class UpdateController extends Controller
             DB::unprepared(file_get_contents($sql_path));
 
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');
@@ -353,6 +432,12 @@ class UpdateController extends Controller
             DB::unprepared(file_get_contents($sql_path));
 
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');
@@ -394,6 +479,12 @@ class UpdateController extends Controller
             DB::unprepared(file_get_contents($sql_path));
 
             $sql_path = base_path('sqlupdates/v793.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v800.sql');
+            DB::unprepared(file_get_contents($sql_path));
+
+            $sql_path = base_path('sqlupdates/v810.sql');
             DB::unprepared(file_get_contents($sql_path));
 
             return redirect()->route('update.step3');

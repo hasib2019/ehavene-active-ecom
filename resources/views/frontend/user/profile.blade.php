@@ -103,7 +103,7 @@
                         </div>
                         @if ($address->set_default)
                             <div class="absolute-md-top-right pt-2 pt-md-4 pr-md-5">
-                                <span class="badge badge-inline badge-warning text-white p-3 fs-12" style="border-radius: 25px; min-width: 80px !important;">{{ translate('Default') }}</span>
+                                <span class="badge badge-inline badge-secondary-base text-white p-3 fs-12" style="border-radius: 25px; min-width: 80px !important;">{{ translate('Default') }}</span>
                             </div>
                         @endif
                         <div class="dropdown position-absolute right-0 top-0 pt-4 mr-1">
@@ -171,7 +171,7 @@
 
 @section('modal')
     <!-- Address modal -->
-    @include('frontend.partials.address_modal')
+    @include('frontend.'.get_setting('homepage_select').'.partials.address_modal')
 @endsection
 
 @section('script')
@@ -196,7 +196,7 @@
     </script>
 
     @if (get_setting('google_map') == 1)
-        @include('frontend.partials.google_map')
+        @include('frontend.'.get_setting('homepage_select').'.partials.google_map')
     @endif
 
 @endsection

@@ -97,7 +97,7 @@
 
 @section('modal')
     <!-- Wallet Recharge Modal -->
-    @include('frontend.partials.wallet_modal')
+    @include('frontend.'.get_setting('homepage_select').'.partials.wallet_modal')
     
     <!-- Offline Wallet Recharge Modal -->
     <div class="modal fade" id="offline_wallet_recharge_modal" tabindex="-1" role="dialog"

@@ -1040,6 +1040,18 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                 });
             });
         },
+        colorPicker: function () {
+            $('.aiz-color-picker').on("change", function(){
+                var $this = $(this)
+                let value = $this.val();
+                $this.parent().parent().siblings('.aiz-color-input').val(value);
+            });
+            $('.aiz-color-input').on("change", function(){
+                var $this = $(this)
+                let value = $this.val();
+                $(this).siblings(".input-group-append").children(".input-group-text").children(".aiz-color-picker").val(value);
+            });
+        },
         fooTable: function () {
             $(".aiz-table").each(function () {
                 var $this = $(this);
@@ -2075,6 +2087,7 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
     AIZ.plugins.countDownCircle();
     AIZ.plugins.dateRange();
     AIZ.plugins.timePicker();
+    AIZ.plugins.colorPicker();
     AIZ.plugins.fooTable();
     AIZ.plugins.slickCarousel();
     AIZ.plugins.noUiSlider();

@@ -98,7 +98,7 @@
             <!-- shop link button -->
             <div class="mt-3">
                 <a href="{{ route('shop.visit', $detailedProduct->user->shop->slug) }}"
-                    class="btn btn-block btn-slide-warning fs-14 fw-700 rounded-0">{{ translate('Visit Store') }}</a>
+                    class="btn btn-block btn-slide-secondary-base fs-14 fw-700 rounded-0">{{ translate('Visit Store') }}</a>
             </div>
         </div>
     </div>

@@ -92,12 +92,10 @@ class PageController extends Controller
         $page_name = $request->page;
         $page = Page::where('slug', $id)->first();
         if($page != null){
-          if ($page_name == 'home') {
-            return view('backend.website_settings.pages.home_page_edit', compact('page','lang'));
-          }
-          else{
+            if ($page_name == 'home') {
+                return view('backend.website_settings.pages.'.get_setting('homepage_select').'.home_page_edit', compact('page','lang'));
+            }
             return view('backend.website_settings.pages.edit', compact('page','lang'));
-          }
         }
         abort(404);
     }

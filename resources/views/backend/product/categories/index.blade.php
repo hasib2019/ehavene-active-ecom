@@ -2,6 +2,11 @@
 
 @section('content')
 
+@php
+    CoreComponentRepository::instantiateShopRepository();
+    CoreComponentRepository::initializeCache();
+@endphp
+
 <div class="aiz-titlebar text-left mt-2 mb-3">
     <div class="row align-items-center">
         <div class="col-md-6">
@@ -9,7 +14,7 @@
         </div>
         @can('add_product_category')
             <div class="col-md-6 text-md-right">
-                <a href="{{ route('categories.create') }}" class="btn btn-primary">
+                <a href="{{ route('categories.create') }}" class="btn btn-circle btn-info">
                     <span>{{translate('Add New category')}}</span>
                 </a>
             </div>

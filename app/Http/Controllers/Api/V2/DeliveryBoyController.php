@@ -73,12 +73,14 @@ class DeliveryBoyController extends Controller
 
         $order_query = Order::query();
         $order_query->where('assign_delivery_boy', $id);
-        $order_query->where(function ($order_query) {
-            $order_query->where('delivery_status', 'pending')
+        $order_query->where(function ($query) {
+            $query->where(function ($q) {
+                $q->where('delivery_status', 'pending')
                     ->where('cancel_request', '0');
-        })->orWhere(function ($order_query) {
-            $order_query->where('delivery_status', 'confirmed')
+            })->orWhere(function ($q) {
+                $q->where('delivery_status', 'confirmed')
                     ->where('cancel_request', '0');
+            });
         });
 
         return new DeliveryBoyPurchaseHistoryMiniCollection($order_query->latest('delivery_history_date')->paginate(10));

@@ -101,7 +101,7 @@
                 
         <!-- Others Queries -->
         <div class="queries-area my-4 mb-0 px-3 px-sm-4">
-            @include('frontend.partials.product_query_pagination')
+            @include('frontend.'.get_setting('homepage_select').'.partials.product_query_pagination')
         </div>
     </div>
 @endif

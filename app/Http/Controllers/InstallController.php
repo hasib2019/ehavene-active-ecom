@@ -8,6 +8,7 @@ use DB;
 use Hash;
 use App\Models\BusinessSetting;
 use App\Models\User;
+use MehediIitdu\CoreComponentRepository\CoreComponentRepository;
 use Artisan;
 use Session;
 
@@ -30,6 +31,7 @@ class InstallController extends Controller
     }
 
     public function step3($error = "") {
+        CoreComponentRepository::instantiateShopRepository();
         if($error == ""){
             return view('installation.step3');
         }else {
@@ -50,12 +52,12 @@ class InstallController extends Controller
             flash("Sorry! The purchase code you have provided is not valid.")->error();
             return back();
         }
-        if ($request->syatem_key == null) {
-            flash("Sorry! The Syatem Key required")->error();
+        if ($request->system_key == null) {
+            flash("Sorry! The System Key required")->error();
             return back();
         }
         Session::put('purchase_code', $request->purchase_code);
-        $this->writeEnvironmentFile('SYSTEM_KEY', $request->syatem_key);
+        $this->writeEnvironmentFile('SYSTEM_KEY', $request->system_key);
         return redirect('step3');
     }
 

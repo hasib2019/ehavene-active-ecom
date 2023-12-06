@@ -18,7 +18,7 @@ class ClassifiedProductMiniCollection extends ResourceCollection
                     'thumbnail_image' => uploaded_asset($data->thumbnail_img),
                     'condition'=>$data->conditon,
                     'unit_price' => single_price($data->unit_price),
-                    'category' => $data->category->name,
+                    'category' => $data->category->getTranslation('name'),
                     'published' => $data->published==1?true:false,
                     'status' => $data->status==1?true:false,
                 ];

@@ -85,14 +85,9 @@ class SupportTicketController extends Controller
         $array['link'] = route('support_ticket.admin_show', encrypt($ticket->id));
         $array['sender'] = $ticket->user->name;
         $array['details'] = $ticket->details;
-
-        // dd($array);
-        // dd(User::where('user_type', 'admin')->first()->email);
         try {
             Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new SupportMailManager($array));
-        } catch (\Exception $e) {
-            // dd($e->getMessage());
-        }
+        } catch (\Exception $e) {}
     }
 
     public function send_support_reply_email_to_user($ticket, $tkt_reply)
@@ -100,16 +95,14 @@ class SupportTicketController extends Controller
         $array['view'] = 'emails.support';
         $array['subject'] = translate('Support ticket Code is') . ':- ' . $ticket->code;
         $array['from'] = env('MAIL_FROM_ADDRESS');
-        $array['content'] = translate('Hi. A ticket has been created. Please check the ticket.');
+        $array['content'] = translate('Hi. You have a new response for this ticket. Please check the ticket.');
         $array['link'] = $ticket->user->user_type == 'seller' ? route('seller.support_ticket.show', encrypt($ticket->id)) : route('support_ticket.show', encrypt($ticket->id));
         $array['sender'] = $tkt_reply->user->name;
         $array['details'] = $tkt_reply->reply;
 
         try {
             Mail::to($ticket->user->email)->queue(new SupportMailManager($array));
-        } catch (\Exception $e) {
-            //dd($e->getMessage());
-        }
+        } catch (\Exception $e) {}
     }
 
     public function admin_store(Request $request)

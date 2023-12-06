@@ -6,7 +6,7 @@
     </div>
     <!-- Ratting -->
     <div class="px-3 px-sm-4 mb-4">
-        <div class="border border-warning bg-soft-warning p-3 p-sm-4">
+        <div class="border border-secondary-base bg-soft-secondary-base p-3 p-sm-4">
             <div class="row align-items-center">
                 <div class="col-md-8 mb-3">
                     <div class="d-flex align-items-center justify-content-between justify-content-md-start">
@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-4 text-right">
                     <a  href="javascript:void(0);" onclick="product_review('{{ $detailedProduct->id }}')" 
-                        class="btn btn-warning fw-400 rounded-0 text-white">
+                        class="btn btn-secondary-base fw-400 rounded-0 text-white">
                         <span class="d-md-inline-block"> {{ translate('Rate this Product') }}</span>
                     </a>
                 </div>

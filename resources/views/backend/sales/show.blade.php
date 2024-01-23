@@ -84,13 +84,13 @@
                             <input type="text" class="form-control" value="{{ $delivery_status }}" disabled>
                         @endif
                     </div>
-                    {{-- <div class="col-md-3 ml-auto">
+                    <div class="col-md-3 ml-auto">
                         <label for="update_tracking_code">
                             {{ translate('Tracking Code (optional)') }}
                         </label>
                         <input type="text" class="form-control" id="update_tracking_code"
                             value="{{ $order->tracking_code }}">
-                    </div> --}}
+                    </div>
                 @endif
             </div>
             <div class="mb-3">

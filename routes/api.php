@@ -287,7 +287,7 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
 
     Route::any('stripe', 'App\Http\Controllers\Api\V2\StripeController@stripe');
     Route::any('stripe/payment/callback', 'App\Http\Controllers\Api\V2\StripeController@callback')->name('api.stripe.callback');
-   
+
 
     Route::any('paypal/payment/url', 'App\Http\Controllers\Api\V2\PaypalController@getUrl')->name('api.paypal.url');
     Route::any('amarpay', [AamarpayController::class, 'pay'])->name('api.amarpay.url');
@@ -298,7 +298,7 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
     Route::any('iyzico/init', 'App\Http\Controllers\Api\V2\IyzicoController@init')->name('api.iyzico.init');
 
     Route::get('bkash/api/webpage/{token}/{amount}', 'App\Http\Controllers\Api\V2\BkashController@webpage')->name('api.bkash.webpage');
-    
+
 
     Route::any('bkash/api/execute/{token}', 'App\Http\Controllers\Api\V2\BkashController@execute')->name('api.bkash.execute');
     Route::any('bkash/api/fail', 'App\Http\Controllers\Api\V2\BkashController@fail')->name('api.bkash.fail');
@@ -315,8 +315,9 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
     Route::any('paytm/payment/pay', 'App\Http\Controllers\Api\V2\PaytmController@pay')->name('api.paytm.pay');
     Route::get('instamojo/pay', 'App\Http\Controllers\Api\V2\InstamojoController@pay');
 
-
     Route::get('payfast/initiate', 'App\Http\Controllers\Api\V2\PayfastController@pay');
+
+    Route::get('/myfatoorah/initiate', 'App\Http\Controllers\Api\V2\MyfatoorahController@pay');
 
     Route::post('offline/payment/submit', 'App\Http\Controllers\Api\V2\OfflinePaymentController@submit')->name('api.offline.payment.submit');
 
@@ -357,7 +358,7 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
         Route::any('stripe/create-checkout-session', 'App\Http\Controllers\Api\V2\StripeController@create_checkout_session')->name('api.stripe.get_token');
         Route::get('stripe/success', 'App\Http\Controllers\Api\V2\StripeController@payment_success');
         Route::any('stripe/cancel', 'App\Http\Controllers\Api\V2\StripeController@cancel')->name('api.stripe.cancel');
-        
+
         Route::any('sslcommerz/success', 'App\Http\Controllers\Api\V2\SslCommerzController@payment_success');
         Route::any('sslcommerz/fail', 'App\Http\Controllers\Api\V2\SslCommerzController@payment_fail');
         Route::any('sslcommerz/cancel', 'App\Http\Controllers\Api\V2\SslCommerzController@payment_cancel');
@@ -373,6 +374,13 @@ Route::group(['prefix' => 'v2', 'middleware' => ['app_language']], function () {
             Route::any('/payfast/cancel', 'payfast_cancel')->name('api.payfast.cancel');
         });
         //Payfast routes <ends>
+
+        Route::get('/myfatoorah/callback', 'App\Http\Controllers\Api\V2\MyfatoorahController@callback')->name('api.myfatoorah.callback');
+
+
+        Route::any('/phonepe/redirecturl', 'App\Http\Controllers\Api\V2\PhonepeController@phonepe_redirecturl')->name('api.phonepe.redirecturl');
+        Route::any('/phonepe/callbackUrl', 'App\Http\Controllers\Api\V2\PhonepeController@phonepe_callbackUrl')->name('api.phonepe.callbackUrl');
+
     });
 });
 

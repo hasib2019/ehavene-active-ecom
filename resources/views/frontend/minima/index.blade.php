@@ -49,15 +49,16 @@
         <div class="p-0 position-relative">
             <!-- Sliders -->
             <div class="home-slider slider-full">
-                @if (get_setting('home_slider_images') != null)
+                @if (get_setting('home_slider_images', null, $lang) != null)
                     <div class="aiz-carousel dots-inside-bottom mobile-img-auto-height" data-autoplay="true" data-infinite="true" data-fade="true" data-autoplay-speed="3000">
                         @php
                             $decoded_slider_images = json_decode(get_setting('home_slider_images', null, $lang), true);
                             $sliders = get_slider_images($decoded_slider_images);
+                            $home_slider_links = get_setting('home_slider_links', null, $lang);
                         @endphp
                         @foreach ($sliders as $key => $slider)
                             <div class="carousel-box">
-                                <a href="{{ json_decode(get_setting('home_slider_links'), true)[$key] }}">
+                                <a href="{{ isset(json_decode($home_slider_links, true)[$key]) ? json_decode($home_slider_links, true)[$key] : '' }}">
                                     <!-- Image -->
                                     <div class="d-block mw-100 img-fit overflow-hidden h-180px h-md-320px h-lg-460px h-xl-553px h-xxl-800px overflow-hidden">
                                         <img class="img-fit h-100 m-auto has-transition ls-is-cached lazyloaded"
@@ -173,12 +174,14 @@
     @endif
 
     <!-- Banner section 1 -->
-    @if (get_setting('home_banner1_images') != null)
+    @php $homeBanner1Images = get_setting('home_banner1_images', null, $lang);   @endphp
+    @if ($homeBanner1Images != null)
         <div class="pb-2 pb-md-3 pt-2 pt-md-3">
             <div class="container mb-2 mb-md-3">
                 @php
-                    $banner_1_imags = json_decode(get_setting('home_banner1_images', null, $lang));
+                    $banner_1_imags = json_decode($homeBanner1Images);
                     $data_md = count($banner_1_imags) >= 2 ? 2 : 1;
+                    $home_banner1_links = get_setting('home_banner1_links', null, $lang);
                 @endphp
                 <div class="w-100">
                     <div class="aiz-carousel gutters-16 overflow-hidden arrow-inactive-none arrow-dark arrow-x-15"
@@ -188,7 +191,7 @@
                         data-dots="false">
                         @foreach ($banner_1_imags as $key => $value)
                             <div class="carousel-box overflow-hidden hov-scale-img">
-                                <a href="{{ json_decode(get_setting('home_banner1_links'), true)[$key] }}"
+                                <a href="{{ isset(json_decode($home_banner1_links, true)[$key]) ? json_decode($home_banner1_links, true)[$key] : '' }}"
                                     class="d-block text-reset overflow-hidden">
                                     <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}"
                                         data-src="{{ uploaded_asset($value) }}" alt="{{ env('APP_NAME') }} promo"
@@ -209,12 +212,14 @@
     </div>
 
     <!-- Banner Section 2 -->
-    @if (get_setting('home_banner2_images') != null)
+    @php $homeBanner2Images = get_setting('home_banner2_images', null, $lang);   @endphp
+    @if ($homeBanner2Images != null)
         <div class="mb-2 mb-md-3 mt-2 mt-md-3">
             <div class="container">
                 @php
-                    $banner_2_imags = json_decode(get_setting('home_banner2_images', null, $lang));
+                    $banner_2_imags = json_decode($homeBanner2Images);
                     $data_md = count($banner_2_imags) >= 2 ? 2 : 1;
+                    $home_banner2_links = get_setting('home_banner2_links', null, $lang);
                 @endphp
                 <div class="aiz-carousel gutters-16 overflow-hidden arrow-inactive-none arrow-dark arrow-x-15"
                     data-items="{{ count($banner_2_imags) }}" data-xxl-items="{{ count($banner_2_imags) }}"
@@ -223,7 +228,7 @@
                     data-dots="false">
                     @foreach ($banner_2_imags as $key => $value)
                         <div class="carousel-box overflow-hidden hov-scale-img">
-                            <a href="{{ json_decode(get_setting('home_banner2_links'), true)[$key] }}"
+                            <a href="{{ isset(json_decode($home_banner2_links, true)[$key]) ? json_decode($home_banner2_links, true)[$key] : '' }}"
                                 class="d-block text-reset overflow-hidden">
                                 <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}"
                                     data-src="{{ uploaded_asset($value) }}" alt="{{ env('APP_NAME') }} promo"
@@ -255,12 +260,14 @@
     </div>
 
     <!-- Banner Section 3 -->
+    @php $homeBanner3Images = get_setting('home_banner3_images', null, $lang);   @endphp
     @if (get_setting('home_banner3_images') != null)
         <div class="mb-2 mb-md-3 mt-2 mt-md-3">
             <div class="container">
                 @php
                     $banner_3_imags = json_decode(get_setting('home_banner3_images', null, $lang));
                     $data_md = count($banner_3_imags) >= 2 ? 2 : 1;
+                    $home_banner3_links = get_setting('home_banner3_links', null, $lang);
                 @endphp
                 <div class="aiz-carousel gutters-16 overflow-hidden arrow-inactive-none arrow-dark arrow-x-15"
                     data-items="{{ count($banner_3_imags) }}" data-xxl-items="{{ count($banner_3_imags) }}"
@@ -269,7 +276,7 @@
                     data-dots="false">
                     @foreach ($banner_3_imags as $key => $value)
                         <div class="carousel-box overflow-hidden hov-scale-img">
-                            <a href="{{ json_decode(get_setting('home_banner3_links'), true)[$key] }}"
+                            <a href="{{ isset(json_decode($home_banner3_links, true)[$key]) ? json_decode($home_banner3_links, true)[$key] : '' }}"
                                 class="d-block text-reset overflow-hidden">
                                 <img src="{{ static_asset('assets/img/placeholder-rect.jpg') }}"
                                     data-src="{{ uploaded_asset($value) }}" alt="{{ env('APP_NAME') }} promo"
@@ -529,19 +536,17 @@
                                     $brands = get_brands($top_brands);
                                 @endphp
                                 @foreach ($brands as $brand)
-                                    @if ($seller->user != null)
                                     <div class="carousel-box position-relative text-center hov-scale-img has-transition hov-shadow-out z-1">
-                                            <a href="{{ route('products.brand', $brand->slug) }}" class="d-block p-sm-2">
-                                                <img src="{{ isset($brand->brandLogo->file_name) ? my_asset($brand->brandLogo->file_name) : static_asset('assets/img/placeholder.jpg') }}"
-                                                    class="lazyload h-md-110px mx-auto has-transition p-2 p-sm-4"
-                                                    alt="{{ $brand->getTranslation('name') }}"
-                                                    onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
-                                                <p class="text-center text-dark fs-12 fs-md-14 fw-700 mt-2 mb-2 text-truncate" title="{{ $brand->getTranslation('name') }}">
-                                                    {{ $brand->getTranslation('name') }}
-                                                </p>
-                                            </a>
-                                        </div>
-                                    @endif
+                                        <a href="{{ route('products.brand', $brand->slug) }}" class="d-block p-sm-2">
+                                            <img src="{{ isset($brand->brandLogo->file_name) ? my_asset($brand->brandLogo->file_name) : static_asset('assets/img/placeholder.jpg') }}"
+                                                class="lazyload h-md-110px mx-auto has-transition p-2 p-sm-4"
+                                                alt="{{ $brand->getTranslation('name') }}"
+                                                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';">
+                                            <p class="text-center text-dark fs-12 fs-md-14 fw-700 mt-2 mb-2 text-truncate" title="{{ $brand->getTranslation('name') }}">
+                                                {{ $brand->getTranslation('name') }}
+                                            </p>
+                                        </a>
+                                    </div>
                                 @endforeach
                             </div>
                         </div>

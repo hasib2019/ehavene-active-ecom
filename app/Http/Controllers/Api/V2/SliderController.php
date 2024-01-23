@@ -9,21 +9,25 @@ class SliderController extends Controller
 {
     public function sliders()
     {
-        return new SliderCollection(get_setting('home_slider_images') != null ? json_decode(get_setting('home_slider_images'), true) : []);
+        $sliders = get_setting('home_slider_images', null, request()->header('App-Language'));
+        return new SliderCollection($sliders != null ? json_decode($sliders, true) : []);
     }
 
     public function bannerOne()
     {
-        return new SliderCollection(get_setting('home_banner1_images') != null ? json_decode(get_setting('home_banner1_images'), true) : []);
+        $bannersOne = get_setting('home_banner1_images', null, request()->header('App-Language'));
+        return new SliderCollection($bannersOne != null ? json_decode($bannersOne, true) : []);
     }
 
     public function bannerTwo()
     {
-        return new SliderCollection(get_setting('home_banner2_images') != null ? json_decode(get_setting('home_banner2_images'), true) : []);
+        $bannersTwo = get_setting('home_banner2_images', null, request()->header('App-Language'));
+        return new SliderCollection($bannersTwo != null ? json_decode($bannersTwo, true) : []);
     }
 
     public function bannerThree()
     {
-        return new SliderCollection(get_setting('home_banner3_images') != null ? json_decode(get_setting('home_banner3_images'), true) : []);
+        $bannersThree = get_setting('home_banner3_images', null, request()->header('App-Language'));
+        return new SliderCollection($bannersThree != null ? json_decode($bannersThree, true) : []);
     }
 }

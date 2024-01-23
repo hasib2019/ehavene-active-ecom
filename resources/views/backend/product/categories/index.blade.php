@@ -2,6 +2,10 @@
 
 @section('content')
 
+@php
+    CoreComponentRepository::instantiateShopRepository();
+    CoreComponentRepository::initializeCache();
+@endphp
 
 <div class="aiz-titlebar text-left mt-2 mb-3">
     <div class="row align-items-center">
@@ -84,7 +88,7 @@
                             @endif
                         </td>
                         <td>
-                            @if($category->icon != null)
+                            @if($category->cover_image != null)
                                 <img src="{{ uploaded_asset($category->cover_image) }}" alt="{{translate('Cover Image')}}" class="h-50px">
                             @else
                                 —

@@ -836,7 +836,7 @@
                             
                             @can('view_all_product_conversations')
                                 @php
-                                    $conversation = \App\Models\Conversation::where('receiver_id', Auth::user()->id)->where('receiver_viewed', '1')->get();
+                                    $conversation = \App\Models\Conversation::where('receiver_id', Auth::user()->id)->where('receiver_viewed', '0')->get();
                                 @endphp
                                 <li class="aiz-side-nav-item">
                                     <a href="{{ route('conversations.admin_index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['conversations.admin_index', 'conversations.admin_show'])}}">
@@ -1534,6 +1534,13 @@
                             <li class="aiz-side-nav-item">
                                 <a href="{{route('system_server')}}" class="aiz-side-nav-link">
                                     <span class="aiz-side-nav-text">{{translate('Server status')}}</span>
+                                </a>
+                            </li>
+                            @endcan
+                            @can('server_status')
+                            <li class="aiz-side-nav-item">
+                                <a href="{{route('import_demo_data')}}" class="aiz-side-nav-link">
+                                    <span class="aiz-side-nav-text">{{translate('Import Demo Data')}}</span>
                                 </a>
                             </li>
                             @endcan

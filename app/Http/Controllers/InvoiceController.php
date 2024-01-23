@@ -36,7 +36,7 @@ class InvoiceController extends Controller
             $language_code == 'bd'
         ) {
             // bengali font
-            $font_family = "'Hind Siliguri','sans-serif'";
+            $font_family = "'Hind Siliguri','freeserif'";
         } elseif (
             $currency_code == 'KHR' ||
             $language_code == 'kh'
@@ -62,7 +62,7 @@ class InvoiceController extends Controller
             $language_code == 'jo'
         ) {
             // middle east/arabic/Israeli font
-            $font_family = "'Baloo Bhaijaan 2','sans-serif'";
+            $font_family = "xbriyaz";
         } elseif ($currency_code == 'THB') {
             // thai font
             $font_family = "'Kanit','sans-serif'";
@@ -71,22 +71,27 @@ class InvoiceController extends Controller
             $language_code == 'zh'
         ) {
             // Chinese font
-            $font_family = "'yahei','sans-serif'";
+            $font_family = "'sun-exta','gb'";
         } elseif (
-            $currency_code == 'kyat' ||
+            $currency_code == 'MMK' ||
             $language_code == 'mm'
         ) {
             // Myanmar font
-            $font_family = "'pyidaungsu','sans-serif'";
+            $font_family = 'tharlon';
         } elseif (
             $currency_code == 'THB' ||
             $language_code == 'th'
         ) {
             // Thai font
             $font_family = "'zawgyi-one','sans-serif'";
+        } elseif (
+            $currency_code == 'USD'
+        ) {
+            // Thai font
+            $font_family = "'Roboto','sans-serif'";
         } else {
             // general for all
-            $font_family = "'Roboto','sans-serif'";
+            $font_family = "freeserif";
         }
 
         // $config = ['instanceConfigurator' => function($mpdf) {
